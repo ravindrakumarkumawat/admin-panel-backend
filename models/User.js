@@ -220,8 +220,36 @@ const remove = async (req, res) => {
   }
 }
 
-const removeList = async (req) => {
+const removeList = async (req, res) => {
+  try {
+    const { lists } = req.body;
+    console.log(lists)
+    const result = await User.deleteMany({
+      _id: {
+        $in: lists
+      }
+    })
 
+    if(!result) {
+      return res.status(404).json({
+        success: false,
+        result: null,
+        message: "No document found"
+      })
+    } else {
+      return res.status(200).json({
+        success: true,
+        result,
+        message: "Successfully Deleted"
+      })
+    }
+  } catch(err) {
+    return res.status(500).json({
+      success: false,
+      result: null,
+      error: err 
+    })
+  }
 }
 
 

@@ -23,7 +23,7 @@ const removeUser = async (req, res) => {
 }
 
 const removeListUser = async (req, res) => {
-  
+  return await removeList(req, res);
 }
 
 module.exports = {
