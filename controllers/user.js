@@ -2,6 +2,7 @@ const {
   create,
   update,
   getUsers,
+  getUser,
   remove,
   removeList
 } = require('../models/User.js')
@@ -18,6 +19,10 @@ const getUserLists = async (req, res) => {
   return await getUsers(req, res);
 }
 
+const getOneUser = async (req, res) => {
+  return await getUser(req, res);
+}
+
 const removeUser = async (req, res) => {
   return await remove(req, res)
 }
@@ -31,5 +36,6 @@ module.exports = {
   updateUser,
   getUserLists,
   removeUser,
-  removeListUser
+  removeListUser,
+  getOneUser
 }

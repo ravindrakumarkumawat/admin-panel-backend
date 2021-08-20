@@ -74,8 +74,30 @@ const userSchema = new mongoose.Schema({
 
 const User  = mongoose.model("User", userSchema)
 
-const getUser = async (req) => {
-
+const getUser = async (req, res) => {
+  try{
+    const result = await User.findOne({_id: req.params.id })
+    console.log(result)
+    if(!result) {
+      return res.status(404).json({
+        success: false,
+        result: null,
+        message: "User not found",
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+        result,
+        message: "User is found",
+      });
+    }
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      result: null,
+      message: err.message,
+    });
+  }
 }
 
 const create = async (req, res) => {
@@ -258,6 +280,7 @@ module.exports = {
   create,
   update,
   getUsers,
+  getUser,
   remove,
   removeList,
 }
